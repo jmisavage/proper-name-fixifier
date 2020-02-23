@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "es2015",
+        "module": "commonjs",
+        "lib": ["es2015", "ES2016.Array.Include"],
+        "declaration": true,
+        "outDir": "dist/",
+        "rootDir": "src/",
+        "removeComments": true,
+        "sourceMap": false,
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "baseUrl": ".",
+        "strict": true,
+        "esModuleInterop": true
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules/", "src/**/*.spec.ts"]
+}

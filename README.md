@@ -7,8 +7,8 @@ Influenced by Perl's [Lingua-EN-NameCase](https://metacpan.org/pod/Lingua::EN::N
 ## Usage
 
 ```JavaScript
-import pnc from 'proper-name-fixifier';
+import * as fixifier from 'proper-name-fixifier';
 
-const name = pnc.fixCase('johnny mnemonic');
+const name = fixifier.fixCase('johnny mnemonic');
 // name = Johnny Mnemonic
 ```

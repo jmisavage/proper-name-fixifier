@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class ProperNameCase {
+class ProperNameFixifier {
     constructor() {
         this.defaultOptions = {
             onlyRunOnBadCase: true,
@@ -133,4 +133,4 @@ class ProperNameCase {
         return name;
     }
 }
-exports.default = ProperNameCase;
+exports.default = ProperNameFixifier;

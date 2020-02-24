@@ -1,7 +1,7 @@
 export interface Options {
     onlyRunOnBadCase?: boolean;
 }
-export default class ProperNameCase {
+export default class ProperNameFixifier {
     private defaultOptions;
     private lowerCaseExceptions;
     fixCase(name: string, options?: Options): string;

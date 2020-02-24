@@ -1,7 +1,7 @@
-import ProperNameCase from './index';
+import ProperNameFixifier from './index';
 import names from '../data/congress.json';
 
-const nc = new ProperNameCase();
+const nc = new ProperNameFixifier();
 
 const differentCases = [
     ['levar woods', 'LeVar Woods'],

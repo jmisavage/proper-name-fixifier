@@ -9,10 +9,8 @@ const defaultOptions: Options = {
 // Fixes for "son (daughter) of" etc. in various languages.
 const lowerCaseExceptions: string[] = [
     'af',
-    'al',
     'ap',
     'av',
-    'ben',
     'da',
     'dal',
     'de',
@@ -23,14 +21,12 @@ const lowerCaseExceptions: string[] = [
     'der',
     'di',
     'du',
-    'e',
     'el',
     'la',
     'le',
     'lo',
     'vel',
     'von',
-    'y',
 ];
 
 export function fixCase(name: string, options: Options = {}): string {
@@ -65,10 +61,6 @@ export function fixCase(name: string, options: Options = {}): string {
     splitters.forEach(s => {
         let parts = fixName.split(s.ch).map((p, i) => {
             // lower case exceptions
-            if (lowerCaseExceptions.includes(p)) {
-                return p;
-            }
-
             p = p.charAt(0).toUpperCase() + p.slice(1);
 
             // Mcs and Macs
@@ -94,9 +86,18 @@ export function fixCase(name: string, options: Options = {}): string {
 function fixSpecialLowerCase(name: string): string {
     lowerCaseExceptions.forEach(r => {
         let p = r.charAt(0).toUpperCase() + r.slice(1);
-        let reg = new RegExp('\b'+p+'\b');
+        let reg = new RegExp('\\b'+p+'(?=\\s+\\w)', 'u');
         name = name.replace(reg, r);
     });
+
+    // some first names are also dividers
+    name = name.replace(/(?!^)Al(?=\s+\w)\b/g, 'al');
+    name = name.replace(/(?!^)Ben(?=\s+\w)\b/g, 'ben');
+
+    // for single characters be careful of initials
+    name = name.replace(/\bE\b(?!\.)/, 'e');
+    name = name.replace(/\bE\b(?!\.)/, 'y');
+
     return name;
 }
 

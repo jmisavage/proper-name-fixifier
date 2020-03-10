@@ -5,10 +5,8 @@ const defaultOptions = {
 };
 const lowerCaseExceptions = [
     'af',
-    'al',
     'ap',
     'av',
-    'ben',
     'da',
     'dal',
     'de',
@@ -19,14 +17,12 @@ const lowerCaseExceptions = [
     'der',
     'di',
     'du',
-    'e',
     'el',
     'la',
     'le',
     'lo',
     'vel',
     'von',
-    'y',
 ];
 function fixCase(name, options = {}) {
     const opts = Object.assign(Object.assign({}, defaultOptions), options);
@@ -49,9 +45,6 @@ function fixCase(name, options = {}) {
     ];
     splitters.forEach(s => {
         let parts = fixName.split(s.ch).map((p, i) => {
-            if (lowerCaseExceptions.includes(p)) {
-                return p;
-            }
             p = p.charAt(0).toUpperCase() + p.slice(1);
             return fixMcsMacs(p);
         });
@@ -66,9 +59,13 @@ exports.fixCase = fixCase;
 function fixSpecialLowerCase(name) {
     lowerCaseExceptions.forEach(r => {
         let p = r.charAt(0).toUpperCase() + r.slice(1);
-        let reg = new RegExp('\b' + p + '\b');
+        let reg = new RegExp('\\b' + p + '(?=\\s+\\w)', 'u');
         name = name.replace(reg, r);
     });
+    name = name.replace(/(?!^)Al(?=\s+\w)\b/g, 'al');
+    name = name.replace(/(?!^)Ben(?=\s+\w)\b/g, 'ben');
+    name = name.replace(/\bE\b(?!\.)/, 'e');
+    name = name.replace(/\bE\b(?!\.)/, 'y');
     return name;
 }
 function special(name) {

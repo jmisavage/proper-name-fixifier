@@ -15,17 +15,19 @@ const namesWithTitles = [
 ];
 
 const specialCases = [
-    'Fname da Lname',
-    'Fname dal Lname',
-    'Fname de Lname',
-    'Fname del Lname',
-    'Fname der Lname',
-    'Fname di Lname',
-    'Fname la Lname',
-    'Fname le Lname',
-    'Fname den Lname',
-    'Fname vel Lname',
-    'Fname von Lname'
+    'Ben Hebrew',
+    'Ben ben Hebrew',
+    'da Lname',
+    'dal Lname',
+    'de Lname',
+    'del Lname',
+    'der Lname',
+    'di Lname',
+    'la Lname',
+    'le Lname',
+    'den Lname',
+    'vel Lname',
+    'von Lname'
 ];
 
 describe('Handle different case input', () => {

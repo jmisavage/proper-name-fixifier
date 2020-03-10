@@ -11,6 +11,21 @@ const namesWithTitles = [
     'Alfonsas Misevičius, Ph.D.',
     'Henry VIII',
     'John C. Doswell, II, DDS',
+    'Tester McTesterson, LL.M.'
+];
+
+const specialCases = [
+    'Fname da Lname',
+    'Fname dal Lname',
+    'Fname de Lname',
+    'Fname del Lname',
+    'Fname der Lname',
+    'Fname di Lname',
+    'Fname la Lname',
+    'Fname le Lname',
+    'Fname den Lname',
+    'Fname vel Lname',
+    'Fname von Lname'
 ];
 
 describe('Handle different case input', () => {
@@ -30,6 +45,10 @@ describe('General rules', () => {
 });
 
 describe('Special cases', () => {
+    test.each(specialCases)('Always lower case: %s', name => {
+        expect(fixifier.fixCase(name.toUpperCase())).toBe(name);
+    });
+
     test.each(namesWithTitles)('Special titles: %s', name => {
         expect(fixifier.fixCase(name.toUpperCase())).toBe(name);
     });

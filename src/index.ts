@@ -83,10 +83,21 @@ export function fixCase(name: string, options: Options = {}): string {
         v => v.toUpperCase()
     );
 
+    fixName = fixSpecialLowerCase(fixName);
+
     // Some people are just special
     fixName = special(fixName);
 
     return fixName;
+}
+
+function fixSpecialLowerCase(name: string): string {
+    lowerCaseExceptions.forEach(r => {
+        let p = r.charAt(0).toUpperCase() + r.slice(1);
+        let reg = new RegExp('\b'+p+'\b');
+        name = name.replace(reg, r);
+    });
+    return name;
 }
 
 function special(name: string): string {
@@ -118,7 +129,7 @@ function special(name: string): string {
         .replace(/\bTj\b/, 'TJ')
 
         // Special Titles
-        .replace(/\bLl\.M\.\b/, 'LL.M.')
+        .replace(/\bLl\.M\b/, 'LL.M')
         .replace(/\bDds\b/, 'DDS');
 
     return name;

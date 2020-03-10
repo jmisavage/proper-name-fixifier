@@ -58,10 +58,19 @@ function fixCase(name, options = {}) {
         fixName = parts.join(s.r);
     });
     fixName = fixName.replace(/\b(?:\d{4}|(?:[IVX])(?:X{0,3}I{0,3}|X{0,2}VI{0,3}|X{0,2}I?[VX]))(?=,+|$)/i, v => v.toUpperCase());
+    fixName = fixSpecialLowerCase(fixName);
     fixName = special(fixName);
     return fixName;
 }
 exports.fixCase = fixCase;
+function fixSpecialLowerCase(name) {
+    lowerCaseExceptions.forEach(r => {
+        let p = r.charAt(0).toUpperCase() + r.slice(1);
+        let reg = new RegExp('\b' + p + '\b');
+        name = name.replace(reg, r);
+    });
+    return name;
+}
 function special(name) {
     name = name
         .replace(/\bDeshawn\b/, 'DeShawn')
@@ -86,7 +95,7 @@ function special(name) {
         .replace(/\bLj\b/, 'LJ')
         .replace(/\bRj\b/, 'RJ')
         .replace(/\bTj\b/, 'TJ')
-        .replace(/\bLl\.M\.\b/, 'LL.M.')
+        .replace(/\bLl\.M\b/, 'LL.M')
         .replace(/\bDds\b/, 'DDS');
     return name;
 }

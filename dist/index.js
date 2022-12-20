@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fixCase = void 0;
 const defaultOptions = {
     onlyRunOnBadCase: true,
 };

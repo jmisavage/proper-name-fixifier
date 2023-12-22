@@ -1,6 +1,6 @@
 {
     "name": "proper-name-fixifier",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "description": "convert all upper case and lower case names to their proper case",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",

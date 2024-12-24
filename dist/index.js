@@ -25,12 +25,17 @@ const lowerCaseExceptions = [
     'vel',
     'von',
 ];
+const capsMcMacException = new RegExp(/\b(Mc|Mac)[A-Z]+\b/g);
+function isMixCaseException(name) {
+    return capsMcMacException.test(name);
+}
 function fixCase(name, options = {}) {
     const opts = Object.assign(Object.assign({}, defaultOptions), options);
     let fixName = name;
     fixName = fixName.replace(/\s{2,}/g, '');
     if (opts.onlyRunOnBadCase) {
-        if (fixName !== fixName.toLowerCase() &&
+        if (!isMixCaseException(fixName) &&
+            fixName !== fixName.toLowerCase() &&
             fixName !== fixName.toUpperCase()) {
             return fixName;
         }

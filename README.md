@@ -3,19 +3,28 @@
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
 
-A Javascript/TypeScript-friendly library for fixing the capitalization of people's names, but only if they're all upper or lower case. For the most part we don't what to change what a person does since there are A LOT of possibilities.
+A JavaScript/TypeScript-friendly library for correcting the capitalization of people's names, specifically when they are entirely upper or lower case. The library avoids making unnecessary changes, respecting the wide variety of valid name formats.
 
-I highly encourage everyone to look into the test file for a more exhaustive list of test cases.  The test also pulls in names from the 116th US Congress (theres over 500 names in there with various languages, accents marks, titles, and even nicknames).
+I highly encourage everyone to look into the test file for a more exhaustive list of test cases.  The test also pulls in names from the 116th US Congress (there's over 500 names in there with various languages, accent marks, titles, and even nicknames).
 
 Influenced by Perl's [Lingua-EN-NameCase](https://metacpan.org/pod/Lingua::EN::NameCase) module and Emgee's [namecase](https://github.com/emgee3/namecase)
+
+## Installation
+
+```
+npm install proper-name-fixifier
+```
 
 ## Usage
 
 ```JavaScript
 import * as fixifier from 'proper-name-fixifier';
 
-const name = fixifier.fixCase('johnny mnemonic');
-// name = Johnny Mnemonic
+console.log(fixifier.fixCase('johnny mnemonic'));   // Johnny Mnemonic
+console.log(fixifier.fixCase('john doe'));          // John Doe
+console.log(fixifier.fixCase('JANE DOE'));          // Jane Doe
+console.log(fixifier.fixCase('McDONALD'));          // McDonald
+console.log(fixifier.fixCase('o\'reilly'));         // O'Reilly
 ```
 
 [npm-image]: https://img.shields.io/npm/v/proper-name-fixifier.svg?style=flat

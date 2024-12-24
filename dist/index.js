@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fixCase = void 0;
+exports.fixCase = fixCase;
 const defaultOptions = {
     onlyRunOnBadCase: true,
 };
@@ -25,12 +25,17 @@ const lowerCaseExceptions = [
     'vel',
     'von',
 ];
+const capsMcMacException = new RegExp(/\b(Mc|Mac)[A-Z]+\b/g);
+function isMixCaseException(name) {
+    return capsMcMacException.test(name);
+}
 function fixCase(name, options = {}) {
     const opts = Object.assign(Object.assign({}, defaultOptions), options);
     let fixName = name;
     fixName = fixName.replace(/\s{2,}/g, '');
     if (opts.onlyRunOnBadCase) {
-        if (fixName !== fixName.toLowerCase() &&
+        if (!isMixCaseException(fixName) &&
+            fixName !== fixName.toLowerCase() &&
             fixName !== fixName.toUpperCase()) {
             return fixName;
         }
@@ -56,7 +61,6 @@ function fixCase(name, options = {}) {
     fixName = special(fixName);
     return fixName;
 }
-exports.fixCase = fixCase;
 function fixSpecialLowerCase(name) {
     lowerCaseExceptions.forEach(r => {
         let p = r.charAt(0).toUpperCase() + r.slice(1);

@@ -55,3 +55,13 @@ describe('Special cases', () => {
         expect(fixifier.fixCase(name.toUpperCase())).toBe(name);
     });
 });
+
+describe('Example Logs', () => {
+    test('The example code returns what we expect', () => {
+        expect(fixifier.fixCase('johnny mnemonic')).toBe('Johnny Mnemonic');
+        expect(fixifier.fixCase('john doe')).toBe('John Doe');
+        expect(fixifier.fixCase('JANE DOE')).toBe('Jane Doe');
+        expect(fixifier.fixCase('McDONALD')).toBe('McDonald');
+        expect(fixifier.fixCase("o'reilly")).toBe("O'Reilly");
+    });
+});

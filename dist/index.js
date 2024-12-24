@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fixCase = void 0;
+exports.fixCase = fixCase;
 const defaultOptions = {
     onlyRunOnBadCase: true,
 };
@@ -56,7 +56,6 @@ function fixCase(name, options = {}) {
     fixName = special(fixName);
     return fixName;
 }
-exports.fixCase = fixCase;
 function fixSpecialLowerCase(name) {
     lowerCaseExceptions.forEach(r => {
         let p = r.charAt(0).toUpperCase() + r.slice(1);

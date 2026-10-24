@@ -4,9 +4,17 @@
     "description": "convert all upper case and lower case names to their proper case",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jmisavage/proper-name-fixifier.git"
+    },
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "build": "tsc",
-        "test": "jest"
+        "test": "jest",
+        "prepublishOnly": "npm run build"
     },
     "keywords": [],
     "author": "Jeremy Misavage",

@@ -29,7 +29,7 @@ const lowerCaseExceptions: string[] = [
     'von',
 ];
 
-const capsMcMacException = new RegExp(/\b(Mc|Mac)[A-Z]+\b/g);
+const capsMcMacException = new RegExp(/\b(Mc|Mac)[A-Z]+\b/);
 
 /**
  * Find cases where a name is all caps except for certain letter combos like
@@ -46,8 +46,8 @@ export function fixCase(name: string, options: Options = {}): string {
     const opts: Options = { ...defaultOptions, ...options };
     let fixName: string = name;
 
-    // remove multiple spaces
-    fixName = fixName.replace(/\s{2,}/g, '');
+    // collapse multiple spaces
+    fixName = fixName.replace(/\s{2,}/g, ' ');
 
     if (opts.onlyRunOnBadCase) {
         // if mix case isn't cause by McNAME or MacNAME then leave mix cases alone

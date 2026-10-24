@@ -56,6 +56,18 @@ describe('Special cases', () => {
     });
 });
 
+describe('Regressions', () => {
+    test('Collapses repeated whitespace to a single space', () => {
+        expect(fixifier.fixCase('john   doe')).toBe('John Doe');
+    });
+
+    test('Gives the same result on repeated calls', () => {
+        for (let i = 0; i < 4; i++) {
+            expect(fixifier.fixCase('McDONALD')).toBe('McDonald');
+        }
+    });
+});
+
 describe('Example Logs', () => {
     test('The example code returns what we expect', () => {
         expect(fixifier.fixCase('johnny mnemonic')).toBe('Johnny Mnemonic');

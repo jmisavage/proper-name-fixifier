@@ -1,19 +1,47 @@
 name: Publish to NPM
 on:
+  # Cut a release from the Actions tab: bumps the version, publishes, tags and creates the GitHub release
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Version bump
+        type: choice
+        options: [patch, minor, major]
+        default: patch
+  # Or publish whatever version is in package.json when a release is created by hand
   release:
-    types: [created]
+    types: [published]
+
+permissions:
+  contents: write # push the version commit/tag and create the release
+  id-token: write # required for OIDC trusted publishing
+
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: '16.x'
+          node-version: '24.x' # ships npm >= 11.5.1, required for trusted publishing
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
+      - run: npm test
+
+      - name: Bump version
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          npm version ${{ inputs.bump }} -m "chore: release %s"
+
       - run: npm run build
       - run: npm publish
+
+      - name: Push version commit and create GitHub release
+        if: github.event_name == 'workflow_dispatch'
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git push --follow-tags
+          gh release create "v$(node -p "require('./package.json').version")" --generate-notes

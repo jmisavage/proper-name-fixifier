@@ -26,6 +26,8 @@ jobs:
           node-version: '24.x' # ships npm >= 11.5.1, required for trusted publishing
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
       - run: npm test
 
       - name: Bump version

@@ -34,8 +34,8 @@ const capsMcMacException = new RegExp(/\b(Mc|Mac)[A-Z]+\b/);
 /**
  * Find cases where a name is all caps except for certain letter combos like
  * Mc and Mac.
- * 
- * @param name 
+ *
+ * @param name
  * @returns bool
  */
 function isMixCaseException(name: string) {
@@ -65,15 +65,15 @@ export function fixCase(name: string, options: Options = {}): string {
     // split names on whitespace or hyphen
     const splitters = [
         { ch: /\s/, r: ' ' },
-        { ch: /\-/, r: '-' },
-        { ch: /\'/, r: "'" },
+        { ch: /-/, r: '-' },
+        { ch: /'/, r: "'" },
         { ch: /’/, r: '’' },
-        { ch: /\"/, r: '"' },
+        { ch: /"/, r: '"' },
         { ch: /\./, r: '.' },
     ];
 
-    splitters.forEach(s => {
-        let parts = fixName.split(s.ch).map((p, i) => {
+    splitters.forEach((s) => {
+        let parts = fixName.split(s.ch).map((p) => {
             // lower case exceptions
             p = p.charAt(0).toUpperCase() + p.slice(1);
 
@@ -86,7 +86,7 @@ export function fixCase(name: string, options: Options = {}): string {
     // Fixes for roman numeral names, e.g. Henry VIII
     fixName = fixName.replace(
         /\b(?:\d{4}|(?:[IVX])(?:X{0,3}I{0,3}|X{0,2}VI{0,3}|X{0,2}I?[VX]))(?=,+|$)/i,
-        v => v.toUpperCase()
+        (v) => v.toUpperCase()
     );
 
     fixName = fixSpecialLowerCase(fixName);
@@ -98,9 +98,9 @@ export function fixCase(name: string, options: Options = {}): string {
 }
 
 function fixSpecialLowerCase(name: string): string {
-    lowerCaseExceptions.forEach(r => {
+    lowerCaseExceptions.forEach((r) => {
         let p = r.charAt(0).toUpperCase() + r.slice(1);
-        let reg = new RegExp('\\b'+p+'(?=\\s+\\w)', 'u');
+        let reg = new RegExp('\\b' + p + '(?=\\s+\\w)', 'u');
         name = name.replace(reg, r);
     });
 
@@ -151,10 +151,7 @@ function special(name: string): string {
 }
 
 function fixMcsMacs(name: string): string {
-    if (
-        new RegExp(/\bMac[A-Za-z]{2,}[^aciozj]\b/).test(name) ||
-        new RegExp(/\bMc/).test(name)
-    ) {
+    if (new RegExp(/\bMac[A-Za-z]{2,}[^aciozj]\b/).test(name) || new RegExp(/\bMc/).test(name)) {
         name = name.replace(/\b(Ma?c)([A-Za-z]+)/, (x, y, z) => {
             return y + z.charAt(0).toUpperCase() + z.substring(1);
         });
@@ -191,9 +188,7 @@ function fixMcsMacs(name: string): string {
         .replace(/\bMacAyla\b/, 'Macayla');
 
     // And correct Mac exceptions otherwise missed
-    name = name
-        .replace(/\bMacmurdo/, 'MacMurdo')
-        .replace(/\bMacisaac/, 'MacIsaac');
+    name = name.replace(/\bMacmurdo/, 'MacMurdo').replace(/\bMacisaac/, 'MacIsaac');
 
     return name;
 }

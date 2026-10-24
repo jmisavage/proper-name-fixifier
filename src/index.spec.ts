@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import * as fixifier from './index';
 import names from '../data/congress.json';
 
@@ -11,7 +12,7 @@ const namesWithTitles = [
     'Alfonsas Misevičius, Ph.D.',
     'Henry VIII',
     'John C. Doswell, II, DDS',
-    'Tester McTesterson, LL.M.'
+    'Tester McTesterson, LL.M.',
 ];
 
 const specialCases = [
@@ -27,7 +28,7 @@ const specialCases = [
     'le Lname',
     'den Lname',
     'vel Lname',
-    'von Lname'
+    'von Lname',
 ];
 
 describe('Handle different case input', () => {
@@ -41,17 +42,17 @@ describe('Handle different case input', () => {
 });
 
 describe('General rules', () => {
-    test.each(names)('Lower case to proper: %s', name => {
+    test.each(names)('Lower case to proper: %s', (name) => {
         expect(fixifier.fixCase(name.toUpperCase())).toBe(name);
     });
 });
 
 describe('Special cases', () => {
-    test.each(specialCases)('Always lower case: %s', name => {
+    test.each(specialCases)('Always lower case: %s', (name) => {
         expect(fixifier.fixCase(name.toUpperCase())).toBe(name);
     });
 
-    test.each(namesWithTitles)('Special titles: %s', name => {
+    test.each(namesWithTitles)('Special titles: %s', (name) => {
         expect(fixifier.fixCase(name.toUpperCase())).toBe(name);
     });
 });
